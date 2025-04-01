@@ -12,10 +12,18 @@ const checkRole = (role) => (req, res, next) => {
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    console.log(`Login attempt: ${username}`);
+
     const user = await User.findOne({ username, password });
-    if (!user) return res.status(401).json({ msg: 'Invalid credentials' });
+    if (!user) {
+        console.log("Invalid login attempt");
+        return res.status(401).json({ msg: 'Invalid credentials' });
+    }
+
+    console.log("Login successful for", user.username);
     res.json({ userId: user._id, role: user.role });
 });
+
 
 router.get('/data', checkRole('admin'), async (req, res) => {
     const areas = await Area.find().populate({
@@ -38,6 +46,17 @@ router.post('/area', checkRole('admin'), async (req, res) => {
     const area = new Area({ name });
     await area.save();
     res.json(area);
+});
+
+router.get('/slaves', async (req, res) => {
+    const { slaveID, date } = req.query;
+    
+    let query = {};
+    if (slaveID) query.slaveID = slaveID;
+    if (date) query.date = date;
+
+    const slaves = await Slave.find(query);
+    res.json(slaves);
 });
 
 router.get('/filter', async (req, res) => {
