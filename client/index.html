@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Panel Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login" class="container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="dashboard" class="container" style="display: none;">
+        <h2>Solar Panel Dashboard</h2>
+        <div id="filters">
+            <input type="text" id="masterId" placeholder="Master ID">
+            <input type="text" id="slaveId" placeholder="Slave ID">
+            <input type="date" id="date">
+            <button onclick="filterData()">Filter</button>
+        </div>
+        <div id="admin-controls" style="display: none;">
+            <input type="text" id="newArea" placeholder="New Area Name">
+            <button onclick="addArea()">Add Area</button>
+        </div>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Area</th>
+                    <th>Master ID</th>
+                    <th>Slave ID</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actual NS Angle</th>
+                    <th>Current NS Angle</th>
+                    <th>Actual EW Angle</th>
+                    <th>Current EW Angle</th>
+                </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
